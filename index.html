@@ -16,49 +16,76 @@
         .container {
             margin-top: 50px;
         }
-        .section-card {
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
+
         .card-header {
-            background-color: #007bff;
+            background: linear-gradient(90deg, #007bff, #6f42c1);
             color: white;
             font-weight: bold;
             text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
         }
+
         .card-body {
             padding: 30px;
+            background-color: white;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
+
         .form-select, .form-control {
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .btn-primary {
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 10px 20px;
             font-size: 16px;
             width: 100%;
+            background-color: #007bff;
+            border: none;
         }
+
         .btn-primary:hover {
             background-color: #0056b3;
         }
-        .list-group-item {
-            border-radius: 10px;
-            margin-bottom: 10px;
+
+        .btn-outline-primary {
+            border-radius: 8px;
+            padding: 8px 16px;
+            border: 2px solid #007bff;
+            color: #007bff;
         }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .list-group-item {
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 15px;
+            background-color: #f1f1f1;
+        }
+
         .list-group-item strong {
             color: #333;
         }
-        .card-footer {
-            background-color: #f8f9fa;
-            text-align: center;
-            padding: 10px;
-        }
 
-        /* Custom styling for the heading */
         .gms-bachat-kosh-heading {
             text-align: center;
             font-size: 36px;
             font-weight: bold;
+            margin-bottom: 40px;
         }
 
         .gms {
@@ -74,6 +101,28 @@
         .kosh {
             color: yellow;
             text-shadow: 2px 2px 5px black, -1px -1px 5px black;
+        }
+
+        .collapse {
+            margin-top: 20px;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .card-body .row {
+            margin-bottom: 20px;
+        }
+
+        /* Icon styling */
+        .icon-container {
+            font-size: 24px;
+            color: #007bff;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -91,7 +140,7 @@
         <section class="section-card">
             <div class="card">
                 <div class="card-header">
-                    User Details
+                    <i class="icon-container">&#128100;</i> User Details
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -108,29 +157,37 @@
         <!-- Deposit Details Section (hidden by default) -->
         <section class="section-card">
             <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#depositDetails" aria-expanded="false" aria-controls="depositDetails">
-                Show Deposit Details
+                <i class="icon-container">&#128179;</i> Show Deposit Details
             </button>
             <div class="collapse" id="depositDetails">
                 <div class="card">
                     <div class="card-header">
-                        Deposit Details
+                        <i class="icon-container">&#128179;</i> Deposit Details
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label for="nepaliYearDeposit" class="form-label">Select Year:</label>
-                            <select id="nepaliYearDeposit" class="form-select">
-                                <!-- Nepali years will be populated dynamically -->
-                            </select>
+                        <div class="row mb-3">
+                            <label for="nepaliYearDeposit" class="col-md-4 col-form-label">Select Year:</label>
+                            <div class="col-md-8">
+                                <select id="nepaliYearDeposit" class="form-select">
+                                    <option value="">Select Year</option>
+                                    <!-- Nepali years will be populated dynamically -->
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="nepaliMonthDeposit" class="form-label">Select Month:</label>
-                            <select id="nepaliMonthDeposit" class="form-select">
-                                <!-- Nepali months will be populated dynamically -->
-                            </select>
+                        <div class="row mb-3">
+                            <label for="nepaliMonthDeposit" class="col-md-4 col-form-label">Select Month:</label>
+                            <div class="col-md-8">
+                                <select id="nepaliMonthDeposit" class="form-select">
+                                    <option value="">Select Month</option>
+                                    <!-- Nepali months will be populated dynamically -->
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="totalDeposit" class="form-label">Total Deposit Amount:</label>
-                            <input type="text" id="totalDeposit" class="form-control" readonly>
+                        <div class="row mb-3">
+                            <label for="totalDeposit" class="col-md-4 col-form-label">Total Deposit Amount:</label>
+                            <div class="col-md-8">
+                                <input type="text" id="totalDeposit" class="form-control" readonly>
+                            </div>
                         </div>
                         <button id="fetchDepositData" class="btn btn-primary">Fetch Deposit Data</button>
                     </div>
@@ -141,33 +198,43 @@
         <!-- Loan Details Section (hidden by default) -->
         <section class="section-card">
             <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#loanDetails" aria-expanded="false" aria-controls="loanDetails">
-                Show Loan Details
+                <i class="icon-container">&#128181;</i> Show Loan Details
             </button>
             <div class="collapse" id="loanDetails">
                 <div class="card">
                     <div class="card-header">
-                        Loan Details
+                        <i class="icon-container">&#128181;</i> Loan Details
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label for="nepaliYearLoan" class="form-label">Select Year:</label>
-                            <select id="nepaliYearLoan" class="form-select">
-                                <!-- Nepali years will be populated dynamically -->
-                            </select>
+                        <div class="row mb-3">
+                            <label for="nepaliYearLoan" class="col-md-4 col-form-label">Select Year:</label>
+                            <div class="col-md-8">
+                                <select id="nepaliYearLoan" class="form-select">
+                                    <option value="">Select Year</option>
+                                    <!-- Nepali years will be populated dynamically -->
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="nepaliMonthLoan" class="form-label">Select Month:</label>
-                            <select id="nepaliMonthLoan" class="form-select">
-                                <!-- Nepali months will be populated dynamically -->
-                            </select>
+                        <div class="row mb-3">
+                            <label for="nepaliMonthLoan" class="col-md-4 col-form-label">Select Month:</label>
+                            <div class="col-md-8">
+                                <select id="nepaliMonthLoan" class="form-select">
+                                    <option value="">Select Month</option>
+                                    <!-- Nepali months will be populated dynamically -->
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="loanInterest" class="form-label">Loan Interest Amount:</label>
-                            <input type="text" id="loanInterest" class="form-control" readonly>
+                        <div class="row mb-3">
+                            <label for="loanInterest" class="col-md-4 col-form-label">Loan Interest Amount:</label>
+                            <div class="col-md-8">
+                                <input type="text" id="loanInterest" class="form-control" readonly>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="loanInstallment" class="form-label">Loan Installment Amount:</label>
-                            <input type="text" id="loanInstallment" class="form-control" readonly>
+                        <div class="row mb-3">
+                            <label for="loanInstallment" class="col-md-4 col-form-label">Loan Installment Amount:</label>
+                            <div class="col-md-8">
+                                <input type="text" id="loanInstallment" class="form-control" readonly>
+                            </div>
                         </div>
                         <button id="fetchLoanData" class="btn btn-primary">Fetch Loan Data</button>
                     </div>
@@ -177,69 +244,41 @@
     </div>
 
     <script>
-        // Populate Nepali years and months dynamically
-        const nepaliYears = Array.from({ length: 21 }, (_, i) => 2070 + i);
-        const nepaliMonths = ["Baisakh", "Jestha", "Ashadh", "Shrawan", "Bhadra", "Ashwin", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"];
+        // JavaScript to dynamically populate the Nepali Year and Month dropdowns
 
-        function populateDropdown(id, options) {
-            const dropdown = document.getElementById(id);
-            options.forEach(option => {
-                const opt = document.createElement('option');
-                opt.value = option;
-                opt.textContent = option;
-                dropdown.appendChild(opt);
+        const nepaliYears = [2079, 2080, 2081, 2082, 2083]; // Example Nepali years
+        const nepaliMonths = [
+            "Baisakh", "Jestha", "Ashad", "Shrawan", "Bhadra", "Ashwin", 
+            "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"
+        ]; // Nepali months
+
+        // Function to populate the year dropdown
+        function populateYearDropdown(yearSelectId) {
+            const yearSelect = document.getElementById(yearSelectId);
+            nepaliYears.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
             });
         }
 
-        populateDropdown('nepaliYearDeposit', nepaliYears);
-        populateDropdown('nepaliMonthDeposit', nepaliMonths);
-        populateDropdown('nepaliYearLoan', nepaliYears);
-        populateDropdown('nepaliMonthLoan', nepaliMonths);
-
-        // Fetch data from Google Sheets (mocked for this example)
-        function fetchGoogleSheetData(csvUrl, callback) {
-            $.ajax({
-                url: csvUrl,
-                dataType: 'text',
-                success: function(data) {
-                    const csvData = data.split('\n').map(row => row.split(','));
-                    callback(csvData);
-                },
-                error: function() {
-                    alert('Error fetching Google Sheet data.');
-                }
+        // Function to populate the month dropdown
+        function populateMonthDropdown(monthSelectId) {
+            const monthSelect = document.getElementById(monthSelectId);
+            nepaliMonths.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month;
+                monthSelect.appendChild(option);
             });
         }
 
-        // Event listener for Fetch Deposit Data button
-        document.getElementById('fetchDepositData').addEventListener('click', function() {
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTXKbfKbDt7ryqJ1kyErfk5JRPRF894UgkMd5WqScNO1X5up4RsoIp-kU1AqtdiXp4gww7blM4cMWHM/pub?gid=0&single=true&output=csv'; // Replace with your actual Google Sheets URL
-            const selectedYear = document.getElementById('nepaliYearDeposit').value;
-            const selectedMonth = document.getElementById('nepaliMonthDeposit').value;
-
-            fetchGoogleSheetData(csvUrl, (csvData) => {
-                let totalDeposit = '0'; // Default value if no match is found
-                for (let row of csvData) {
-                    if (row[0] === selectedYear && row[1] === selectedMonth) {
-                        totalDeposit = row[2]; // Assuming column 2 contains the deposit amount
-                        break;
-                    }
-                }
-                document.getElementById('totalDeposit').value = totalDeposit;
-            });
-        });
-
-        // Event listener for Fetch Loan Data button
-        document.getElementById('fetchLoanData').addEventListener('click', function() {
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTXKbfKbDt7ryqJ1kyErfk5JRPRF894UgkMd5WqScNO1X5up4RsoIp-kU1AqtdiXp4gww7blM4cMWHM/pub?gid=360640645&single=true&output=csv'; // Replace with your actual Google Sheets URL
-            const selectedYear = document.getElementById('nepaliYearLoan').value;
-            const selectedMonth = document.getElementById('nepaliMonthLoan').value;
-            fetchGoogleSheetData(csvUrl, (csvData) => {
-                const loanDetails = csvData.find(row => row[0] === selectedYear && row[1] === selectedMonth);
-                document.getElementById('loanInterest').value = loanDetails?.[2] || '0';
-                document.getElementById('loanInstallment').value = loanDetails?.[3] || '0';
-            });
-        });
+        // Populate the dropdowns for both sections
+        populateYearDropdown('nepaliYearDeposit');
+        populateMonthDropdown('nepaliMonthDeposit');
+        populateYearDropdown('nepaliYearLoan');
+        populateMonthDropdown('nepaliMonthLoan');
     </script>
 
 </body>
