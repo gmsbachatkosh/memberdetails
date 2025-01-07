@@ -254,67 +254,104 @@
     </div>
 
     <script>
-        // JavaScript to dynamically populate the Nepali Year and Month dropdowns
+         // Google Sheet CSV URLs
+        const depositSheetCSVUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXKbfKbDt7ryqJ1kyErfk5JRPRF894UgkMd5WqScNO1X5up4RsoIp-kU1AqtdiXp4gww7blM4cMWHM/pub?gid=0&single=true&output=csv";
+        const loanSheetCSVUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXKbfKbDt7ryqJ1kyErfk5JRPRF894UgkMd5WqScNO1X5up4RsoIp-kU1AqtdiXp4gww7blM4cMWHM/pub?gid=360640645&single=true&output=csv";
+
+        // Nepali years and months
         const nepaliYears = [2079, 2080, 2081, 2082, 2083];
         const nepaliMonths = ["Baisakh", "Jestha", "Ashad", "Shrawan", "Bhadra", "Ashwin", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"];
 
-        function populateYearDropdown(yearSelectId) {
+        // Populate dropdowns
+        function populateDropdowns(yearSelectId, monthSelectId) {
             const yearSelect = document.getElementById(yearSelectId);
+            const monthSelect = document.getElementById(monthSelectId);
+
             nepaliYears.forEach(year => {
-                const option = document.createElement('option');
+                const option = document.createElement("option");
                 option.value = year;
                 option.textContent = year;
                 yearSelect.appendChild(option);
             });
-        }
 
-        function populateMonthDropdown(monthSelectId) {
-            const monthSelect = document.getElementById(monthSelectId);
-            nepaliMonths.forEach(month => {
-                const option = document.createElement('option');
-                option.value = month;
+            nepaliMonths.forEach((month, index) => {
+                const option = document.createElement("option");
+                option.value = index + 1;
                 option.textContent = month;
                 monthSelect.appendChild(option);
             });
         }
 
-        // Populate the dropdowns for both sections
-        populateYearDropdown('nepaliYearDeposit');
-        populateMonthDropdown('nepaliMonthDeposit');
-        populateYearDropdown('nepaliYearLoan');
-        populateMonthDropdown('nepaliMonthLoan');
+        // Fetch CSV data
+        async function fetchCSVData(url) {
+            const response = await fetch(url);
+            const csvText = await response.text();
+            return parseCSV(csvText);
+        }
 
-        // JavaScript to fetch Deposit Data
-        document.getElementById('fetchDepositData').addEventListener('click', function () {
-            const year = document.getElementById('nepaliYearDeposit').value;
-            const month = document.getElementById('nepaliMonthDeposit').value;
-            
-            if (year && month) {
-                // Simulate fetching deposit data
-                const depositAmount = 50000; // Example amount
-                document.getElementById('totalDeposit').value = depositAmount;
-            } else {
-                alert('Please select both year and month.');
+        // Parse CSV data
+        function parseCSV(csvText) {
+            const rows = csvText.split("\n").map(row => row.split(","));
+            const headers = rows[0];
+            const data = rows.slice(1).map(row => {
+                const obj = {};
+                headers.forEach((header, i) => {
+                    obj[header.trim()] = row[i]?.trim();
+                });
+                return obj;
+            });
+            return data;
+        }
+
+        // Fetch Deposit Data
+        function fetchDepositData() {
+            const selectedYear = document.getElementById("nepaliYearDeposit").value;
+            const selectedMonth = document.getElementById("nepaliMonthDeposit").value;
+
+            if (!selectedYear || !selectedMonth) {
+                alert("Please select both year and month.");
+                return;
             }
-        });
 
-        // JavaScript to fetch Loan Data
-        document.getElementById('fetchLoanData').addEventListener('click', function () {
-            const year = document.getElementById('nepaliYearLoan').value;
-            const month = document.getElementById('nepaliMonthLoan').value;
-            
-            if (year && month) {
-                // Simulate fetching loan data
-                const loanInstallment = 10000; // Example amount
-                const loanInterest = 1200; // Example interest amount
+            fetchCSVData(depositSheetCSVUrl).then(data => {
+                const depositData = data.find(entry => entry.year === selectedYear && entry.month === selectedMonth);
+                if (depositData) {
+                    document.getElementById("totalDeposit").value = depositData.totalDepositAmount || "Data not available";
+                } else {
+                    document.getElementById("totalDeposit").value = "No data found for the selected year and month.";
+                }
+            });
+        }
 
-                // Set values for both fields
-                document.getElementById('loanInstallment').value = loanInstallment;
-                document.getElementById('loanInterestAmount').value = loanInterest;
-            } else {
-                alert('Please select both year and month.');
+        // Fetch Loan Data
+        function fetchLoanData() {
+            const selectedYear = document.getElementById("nepaliYearLoan").value;
+            const selectedMonth = document.getElementById("nepaliMonthLoan").value;
+
+            if (!selectedYear || !selectedMonth) {
+                alert("Please select both year and month.");
+                return;
             }
-        });
+
+            fetchCSVData(loanSheetCSVUrl).then(data => {
+                const loanData = data.find(entry => entry.year === selectedYear && entry.month === selectedMonth);
+                if (loanData) {
+                    document.getElementById("loanInstallment").value = loanData.loanInstallmentAmount || "Data not available";
+                    document.getElementById("loanInterestAmount").value = loanData.loanInterestAmount || "Data not available";
+                } else {
+                    document.getElementById("loanInstallment").value = "No data found for the selected year and month.";
+                    document.getElementById("loanInterestAmount").value = "No data found for the selected year and month.";
+                }
+            });
+        }
+
+        // Add event listeners
+        document.getElementById("fetchDepositData").addEventListener("click", fetchDepositData);
+        document.getElementById("fetchLoanData").addEventListener("click", fetchLoanData);
+
+        // Populate dropdowns
+        populateDropdowns("nepaliYearDeposit", "nepaliMonthDeposit");
+        populateDropdowns("nepaliYearLoan", "nepaliMonthLoan");
     </script>
 
 </body>
