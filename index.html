@@ -124,6 +124,22 @@
             color: #007bff;
             margin-right: 10px;
         }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .d-flex label {
+            margin-right: 10px;
+            font-weight: bold;
+            width: 200px;
+        }
+
+        .d-flex .form-select, 
+        .d-flex .form-control {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -165,29 +181,23 @@
                         <i class="icon-container">&#128179;</i> Deposit Details
                     </div>
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <label for="nepaliYearDeposit" class="col-md-4 col-form-label">Select Year:</label>
-                            <div class="col-md-8">
-                                <select id="nepaliYearDeposit" class="form-select">
-                                    <option value="">Select Year</option>
-                                    <!-- Nepali years will be populated dynamically -->
-                                </select>
-                            </div>
+                        <div class="d-flex mb-3">
+                            <label for="nepaliYearDeposit">Select Year:</label>
+                            <select id="nepaliYearDeposit" class="form-select">
+                                <option value="">Select Year</option>
+                                <!-- Nepali years will be populated dynamically -->
+                            </select>
                         </div>
-                        <div class="row mb-3">
-                            <label for="nepaliMonthDeposit" class="col-md-4 col-form-label">Select Month:</label>
-                            <div class="col-md-8">
-                                <select id="nepaliMonthDeposit" class="form-select">
-                                    <option value="">Select Month</option>
-                                    <!-- Nepali months will be populated dynamically -->
-                                </select>
-                            </div>
+                        <div class="d-flex mb-3">
+                            <label for="nepaliMonthDeposit">Select Month:</label>
+                            <select id="nepaliMonthDeposit" class="form-select">
+                                <option value="">Select Month</option>
+                                <!-- Nepali months will be populated dynamically -->
+                            </select>
                         </div>
-                        <div class="row mb-3">
-                            <label for="totalDeposit" class="col-md-4 col-form-label">Total Deposit Amount:</label>
-                            <div class="col-md-8">
-                                <input type="text" id="totalDeposit" class="form-control" readonly>
-                            </div>
+                        <div class="d-flex mb-3">
+                            <label for="totalDeposit">Total Deposit Amount:</label>
+                            <input type="text" id="totalDeposit" class="form-control" readonly>
                         </div>
                         <button id="fetchDepositData" class="btn btn-primary">Fetch Deposit Data</button>
                     </div>
@@ -206,35 +216,23 @@
                         <i class="icon-container">&#128181;</i> Loan Details
                     </div>
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <label for="nepaliYearLoan" class="col-md-4 col-form-label">Select Year:</label>
-                            <div class="col-md-8">
-                                <select id="nepaliYearLoan" class="form-select">
-                                    <option value="">Select Year</option>
-                                    <!-- Nepali years will be populated dynamically -->
-                                </select>
-                            </div>
+                        <div class="d-flex mb-3">
+                            <label for="nepaliYearLoan">Select Year:</label>
+                            <select id="nepaliYearLoan" class="form-select">
+                                <option value="">Select Year</option>
+                                <!-- Nepali years will be populated dynamically -->
+                            </select>
                         </div>
-                        <div class="row mb-3">
-                            <label for="nepaliMonthLoan" class="col-md-4 col-form-label">Select Month:</label>
-                            <div class="col-md-8">
-                                <select id="nepaliMonthLoan" class="form-select">
-                                    <option value="">Select Month</option>
-                                    <!-- Nepali months will be populated dynamically -->
-                                </select>
-                            </div>
+                        <div class="d-flex mb-3">
+                            <label for="nepaliMonthLoan">Select Month:</label>
+                            <select id="nepaliMonthLoan" class="form-select">
+                                <option value="">Select Month</option>
+                                <!-- Nepali months will be populated dynamically -->
+                            </select>
                         </div>
-                        <div class="row mb-3">
-                            <label for="loanInterest" class="col-md-4 col-form-label">Loan Interest Amount:</label>
-                            <div class="col-md-8">
-                                <input type="text" id="loanInterest" class="form-control" readonly>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="loanInstallment" class="col-md-4 col-form-label">Loan Installment Amount:</label>
-                            <div class="col-md-8">
-                                <input type="text" id="loanInstallment" class="form-control" readonly>
-                            </div>
+                        <div class="d-flex mb-3">
+                            <label for="loanInstallment">Loan Installment Amount:</label>
+                            <input type="text" id="loanInstallment" class="form-control" readonly>
                         </div>
                         <button id="fetchLoanData" class="btn btn-primary">Fetch Loan Data</button>
                     </div>
@@ -245,14 +243,9 @@
 
     <script>
         // JavaScript to dynamically populate the Nepali Year and Month dropdowns
+        const nepaliYears = [2079, 2080, 2081, 2082, 2083];
+        const nepaliMonths = ["Baisakh", "Jestha", "Ashad", "Shrawan", "Bhadra", "Ashwin", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"];
 
-        const nepaliYears = [2079, 2080, 2081, 2082, 2083]; // Example Nepali years
-        const nepaliMonths = [
-            "Baisakh", "Jestha", "Ashad", "Shrawan", "Bhadra", "Ashwin", 
-            "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"
-        ]; // Nepali months
-
-        // Function to populate the year dropdown
         function populateYearDropdown(yearSelectId) {
             const yearSelect = document.getElementById(yearSelectId);
             nepaliYears.forEach(year => {
@@ -263,7 +256,6 @@
             });
         }
 
-        // Function to populate the month dropdown
         function populateMonthDropdown(monthSelectId) {
             const monthSelect = document.getElementById(monthSelectId);
             nepaliMonths.forEach(month => {
