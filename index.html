@@ -216,6 +216,7 @@
                         <i class="icon-container">&#128181;</i> Loan Details
                     </div>
                     <div class="card-body">
+                        <!-- Select Year -->
                         <div class="d-flex mb-3">
                             <label for="nepaliYearLoan">Select Year:</label>
                             <select id="nepaliYearLoan" class="form-select">
@@ -223,6 +224,8 @@
                                 <!-- Nepali years will be populated dynamically -->
                             </select>
                         </div>
+
+                        <!-- Select Month -->
                         <div class="d-flex mb-3">
                             <label for="nepaliMonthLoan">Select Month:</label>
                             <select id="nepaliMonthLoan" class="form-select">
@@ -230,10 +233,19 @@
                                 <!-- Nepali months will be populated dynamically -->
                             </select>
                         </div>
+
+                        <!-- Loan Installment Amount -->
                         <div class="d-flex mb-3">
                             <label for="loanInstallment">Loan Installment Amount:</label>
                             <input type="text" id="loanInstallment" class="form-control" readonly>
                         </div>
+
+                        <!-- Loan Interest Amount (new field) -->
+                        <div class="d-flex mb-3">
+                            <label for="loanInterestAmount" style="width: 220px;">Loan Interest Amount:</label>
+                            <input type="text" id="loanInterestAmount" class="form-control" readonly>
+                        </div>
+
                         <button id="fetchLoanData" class="btn btn-primary">Fetch Loan Data</button>
                     </div>
                 </div>
@@ -271,6 +283,38 @@
         populateMonthDropdown('nepaliMonthDeposit');
         populateYearDropdown('nepaliYearLoan');
         populateMonthDropdown('nepaliMonthLoan');
+
+        // JavaScript to fetch Deposit Data
+        document.getElementById('fetchDepositData').addEventListener('click', function () {
+            const year = document.getElementById('nepaliYearDeposit').value;
+            const month = document.getElementById('nepaliMonthDeposit').value;
+            
+            if (year && month) {
+                // Simulate fetching deposit data
+                const depositAmount = 50000; // Example amount
+                document.getElementById('totalDeposit').value = depositAmount;
+            } else {
+                alert('Please select both year and month.');
+            }
+        });
+
+        // JavaScript to fetch Loan Data
+        document.getElementById('fetchLoanData').addEventListener('click', function () {
+            const year = document.getElementById('nepaliYearLoan').value;
+            const month = document.getElementById('nepaliMonthLoan').value;
+            
+            if (year && month) {
+                // Simulate fetching loan data
+                const loanInstallment = 10000; // Example amount
+                const loanInterest = 1200; // Example interest amount
+
+                // Set values for both fields
+                document.getElementById('loanInstallment').value = loanInstallment;
+                document.getElementById('loanInterestAmount').value = loanInterest;
+            } else {
+                alert('Please select both year and month.');
+            }
+        });
     </script>
 
 </body>
